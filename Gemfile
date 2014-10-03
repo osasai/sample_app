@@ -3,6 +3,8 @@ ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
 gem 'rails', '4.0.5'
+gem 'bootstrap-sass', '2.3.2.0'
+gem 'sprockets', '2.11.0'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
@@ -18,6 +20,7 @@ group :test do
   gem 'capybara', '2.1.0'
   # Uncomment this line on OS X.
   gem 'growl', '1.0.3'
+  gem 'terminal-notifier-guard'
 
   # Uncomment these lines on Linux.
   # gem 'libnotify', '0.8.0'
