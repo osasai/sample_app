@@ -40,11 +40,7 @@ describe "UserPages" do
 
 
 			describe "error because password be blank" do
-				before do
-					fill_in "Name",	with: "Osamu Saito"
-					fill_in "Email", with: "osasaito@gmail.com"
-					click_button submit
-				end
+				before { invalid_signup_emailblank }
 
 				it { should have_content("Password can't be blank") }
 				it { should have_content('Password is too short')}
@@ -53,12 +49,7 @@ describe "UserPages" do
 
 
 		describe "with valid information" do
-			before do
-				fill_in "Name",		with: "Example User"
-				fill_in "Email",	with: "user@example.com"
-				fill_in "Password",	with: "foobar"
-				fill_in "Confirmation", with: "foobar"
-			end
+			before { valid_signup }
 
 			describe "after saving the user" do
 				before { click_button submit }
@@ -66,7 +57,8 @@ describe "UserPages" do
 
 				it { should have_link('Sign out') }
 				it { should have_title(user.name) }
-				it { should have_selector('div.alert.alert-success', text: "Welcome") }
+#				it { should have_selector('div.alert.alert-success', text: "Welcome") }
+				it { should have_welcome_message('Welcome') }
 			end
 
 			it "should create a new user" do
