@@ -30,6 +30,32 @@ describe "StaticPages" do
 				user.feed.each do |item|
 					expect(page).to have_selector("li##{item.id}", text: item.content)
 				end
+				expect(page).to have_content("2 microposts")
+			end
+
+			describe "follower/following counts" do
+				let(:other_user) { FactoryGirl.create(:user) }
+				before do
+					other_user.follow!(user)
+					visit root_path
+				end
+
+				it { should have_link("0 following", href: following_user_path(user)) }
+				it { should have_link("1 followers", href: followers_user_path(user)) }
+
+			end
+
+			describe "for one post user" do
+				let(:onepostuser) { FactoryGirl.create(:user) }
+				before do
+					FactoryGirl.create(:micropost, user: onepostuser, content: "Lorem ipsum")
+					sign_in onepostuser
+					visit root_path
+				end
+
+				it "should be one micropost shown" do
+				expect(page).to have_content("1 micropost")
+				end
 			end
 		end
 	end
